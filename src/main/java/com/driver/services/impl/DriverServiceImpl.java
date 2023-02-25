@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service;
 import com.driver.model.Driver;
 import com.driver.repository.DriverRepository;
 
-import java.util.List;
-
 @Service
-public class DriverServiceImpl implements DriverService {
+public class
+DriverServiceImpl implements DriverService {
 
 	@Autowired
 	DriverRepository driverRepository3;
@@ -34,12 +33,16 @@ public class DriverServiceImpl implements DriverService {
 		driver.setCab(cab);
 
 		driverRepository3.save(driver);
+
+		//We will not save driver explicitly because of cascading effect (here driver is child and cab is parent)
 	}
 
 	@Override
 	public void removeDriver(int driverId){
 		// Delete driver without using deleteById function
-		driverRepository3.deleteById(driverId);
+		Driver driver = driverRepository3.findById(driverId).get();
+		driverRepository3.delete(driver);
+
 	}
 
 	@Override

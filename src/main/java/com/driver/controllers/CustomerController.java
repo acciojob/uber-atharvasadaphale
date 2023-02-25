@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
-
 	@Autowired
 	CustomerServiceImpl customerServiceImpl;
 	@PostMapping("/register")
 	public ResponseEntity<Void> registerCustomer(@RequestBody Customer customer){
+		customerServiceImpl.register(customer);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete")
 	public void deleteCustomer(@RequestParam Integer customerId){
+		customerServiceImpl.deleteCustomer(customerId);
 	}
 
 	@PostMapping("/bookTrip")
@@ -32,9 +33,11 @@ public class CustomerController {
 
 	@DeleteMapping("/complete")
 	public void completeTrip(@RequestParam Integer tripId){
+		customerServiceImpl.completeTrip(tripId);
 	}
 
 	@DeleteMapping("/cancelTrip")
 	public void cancelTrip(@RequestParam Integer tripId){
+		customerServiceImpl.cancelTrip(tripId);
 	}
 }

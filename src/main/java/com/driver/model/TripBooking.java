@@ -3,26 +3,24 @@ package com.driver.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Trip Booking")
-public class TripBooking {
-
+@Table(name = "TripBooking")
+public class TripBooking{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tripBookingId;
+    int tripBookingId;
 
-    private String fromLocation;
+    String fromLocation;
 
-    private String toLocation;
+    String toLocation;
 
-    private int distanceInKm;
+    int distanceInKm;
 
-   /* @Enumerated(value = EnumType.STRING)
-    private TripStatus tripStatus;*/
+    TripStatus status;
 
-    private int bill;
+    int bill;
 
-    TripStatus Status;
 
+    //For mapping to customer(parent)
     @ManyToOne
     @JoinColumn
     Customer customer;
@@ -32,32 +30,19 @@ public class TripBooking {
     @JoinColumn
     Driver driver;
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Driver getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Driver driver) {
-        this.driver = driver;
-    }
-
     public TripBooking() {
+
     }
 
-    public TripBooking(int tripBookingId, String fromLocation, String toLocation, int distanceInKm, TripStatus tripStatus, int bill) {
+    public TripBooking(int tripBookingId, String fromLocation, String toLocation, int distanceInKm, TripStatus status, int bill, Customer customer, Driver driver) {
         this.tripBookingId = tripBookingId;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.distanceInKm = distanceInKm;
-        this.Status = tripStatus;
+        this.status = status;
         this.bill = bill;
+        this.customer = customer;
+        this.driver = driver;
     }
 
     public int getTripBookingId() {
@@ -93,11 +78,11 @@ public class TripBooking {
     }
 
     public TripStatus getStatus() {
-        return Status;
+        return status;
     }
 
-    public void setStatus(TripStatus tripStatus) {
-        this.Status = tripStatus;
+    public void setStatus(TripStatus status) {
+        this.status = status;
     }
 
     public int getBill() {
@@ -106,5 +91,21 @@ public class TripBooking {
 
     public void setBill(int bill) {
         this.bill = bill;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }
